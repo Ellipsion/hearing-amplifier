@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <audio id="audio" autoplay></audio>
+    <script>
+        const audio = document.getElementById("audio")
+        const amplifier = 3
+        let localStream;
+
+        function amplify(node, gain) {
+            const audioCtx = new AudioContext();
+            const source = audioCtx.createMediaElementSource(node);
+
+            // create a gain node
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.value = gain;
+            source.connect(gainNode);
+
+            // connect the gain node to an output destination
+            gainNode.connect(audioCtx.destination);
+        }
+        const init = async () => {
+            localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+            audio.srcObject = localStream
+        }
+
+        init()
+        amplify(audio, amplifier)
+    </script>
+</body>
+
+</html>
