@@ -27,8 +27,13 @@
             gainNode.connect(audioCtx.destination);
         }
         const init = async () => {
-            localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true })
-            audio.srcObject = localStream
+            try {
+
+                localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+                audio.srcObject = localStream
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         init()
