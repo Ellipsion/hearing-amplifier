@@ -30,8 +30,11 @@
             try {
 
                 localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+
                 audio.srcObject = localStream
+                document.querySelector('body').bgColor = "#00ff00"
             } catch (err) {
+                document.querySelector('body').bgColor = "#ff0000"
                 console.log(err)
             }
         }
